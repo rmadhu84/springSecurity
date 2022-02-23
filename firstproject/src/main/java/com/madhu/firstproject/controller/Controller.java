@@ -16,6 +16,6 @@ public class Controller {
 
     @GetMapping(value = "/sayHello")
     public ResponseEntity<Object> sayHello(@RequestParam("name") String user){
-        return ResponseEntity.status(HttpStatus.OK).body(String.format("Hello, %s", user));
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("%s wishes you Good Day !!", user));
     }
 }
