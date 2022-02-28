@@ -25,10 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(SecurtyConstants.URI_ADMIN).hasRole(SecurtyConstants.ROLE_ADMIN)
-                .antMatchers("/getUserByName").hasRole(SecurtyConstants.ROLE_ADMIN)
+                // .antMatchers("/getUserByName").hasRole(SecurtyConstants.ROLE_ADMIN)
                 .antMatchers(SecurtyConstants.URI_USER)
                 .hasAnyRole(SecurtyConstants.ROLE_ADMIN, SecurtyConstants.ROLE_USER)
-                .antMatchers(SecurtyConstants.URI_ROOT).permitAll().anyRequest().fullyAuthenticated()
+                .antMatchers(SecurtyConstants.URI_ROOT).permitAll()
                 .and().formLogin();
     }
 

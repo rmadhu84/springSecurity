@@ -36,12 +36,12 @@ public class JpaUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return this.authorities;
     }
 
     @Override
     public String getPassword() {
-        return "pass";
+        return this.password;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class JpaUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.active;
     }
 
 }
