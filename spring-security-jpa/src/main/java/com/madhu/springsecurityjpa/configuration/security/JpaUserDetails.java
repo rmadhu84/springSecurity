@@ -3,7 +3,6 @@ package com.madhu.springsecurityjpa.configuration.security;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.madhu.springsecurityjpa.domain.User;
@@ -12,6 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.ToString;
+
+@ToString
 public class JpaUserDetails implements UserDetails {
 
     private String userName;
@@ -30,7 +32,7 @@ public class JpaUserDetails implements UserDetails {
         this.userName = user.getUserName();
         this.password = user.getPwd();
         this.active = user.isActive();
-        this.authorities = Arrays.stream(user.getRoles().split(".")).map(SimpleGrantedAuthority::new)
+        this.authorities = Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 

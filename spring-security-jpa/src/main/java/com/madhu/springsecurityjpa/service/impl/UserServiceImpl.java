@@ -18,14 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserCommand getUserById(long id) throws NoRecordFoundException {
-        UserCommand userCommand = null;
-        Optional<User> user;
-        if ((user = userRepository.findById(id)).isPresent()) {
-            userCommand = new UserCommand();
-            BeanUtils.copyProperties(user.get(), userCommand);
-        } else
-            throw new NoRecordFoundException(String.format("No Record found for user Id : %d", id));
-        return userCommand;
+        Optional<User> user = userRepository.findById(id);
+        return user.map(UserCommand::new)
+                .orElseThrow(() -> new NoRecordFoundException(String.format("No Record found for user Id : %d", id)));
     }
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -33,15 +28,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object getUserByName(String name) {
-        UserCommand userCommand = null;
-        Optional<User> user;
-        if ((user = userRepository.findByUserName(name)).isPresent()) {
-            userCommand = new UserCommand();
-            BeanUtils.copyProperties(user.get(), userCommand);
-        } else
-            throw new NoRecordFoundException(String.format("No Record for user with user_name: %s", name));
-        return userCommand;
+    public UserCommand getUserByName(String name) {
+        Optional<User> user = userRepository.findByUserName(name);
+        return user.map(UserCommand::new).orElseThrow(
+                () -> new NoRecordFoundException(String.format("No Record found for user with userName: %s ", name)));
     }
 
 }
